@@ -1,4 +1,4 @@
-import pprint # Useful for debugging
+import pprint
 import shotgun_api3
 from glob import glob
 import os
@@ -21,7 +21,7 @@ from datetime import datetime
 #       --review: This is used for sending deliveries from Media Team Folder
 #       --purple: This is used for sending deliveries from Purple Patch Folder
 
-#       --playlist: Enter playlist name
+       --playlist: Enter playlist name
 #       --target: The target folder for uploads. This only works in conjunction with --new sequence though
 
 ###     python /Users/mtimac2/Documents/Develop/Shotgun_Upload_Versions.py --new_sequence --target "/Volumes/Branching Out EDIT/Branching Out/VFX/YL2_025_COVR" --playlist "20240828_YL2_025_COVR_Plates"
@@ -105,33 +105,19 @@ def create_movie_from_still(image_path):
     shotcode=os.path.basename(image_path)[:19]
     if shotcode in all_reference_mock_dict.keys():
         video_path=all_reference_mock_dict[shotcode]
-        output_video_path=str(Path(image_path).with_suffix('.mp4'))#.replace('.mp4','_video.mp4')
+        output_video_path=str(Path(image_path).with_suffix('.mp4'))
         if not os.path.exists(output_video_path):
-            fps = 23.978  # Frames per second
-            extra_frames = 12  # Number of extra frames at the beginning and end
-
-            # Step 1: Load the original video and extract the audio
+            fps = 23.978 
+            extra_frames = 12  
             video_clip = VideoFileClip(video_path)
             audio_clip = video_clip.audio
-
-            # Step 2: Create the still image clip
             image_clip = ImageClip(image_path, duration=video_clip.duration)
-
-            # Step 3: Create silent clips at the beginning and end
             silence_duration = extra_frames / fps
             start_silence_clip = ImageClip(image_path, duration=silence_duration)
             end_silence_clip = ImageClip(image_path, duration=silence_duration)
-
-            # Step 4: Combine the clips: silence + video with audio + silence
             final_clip = concatenate_videoclips([start_silence_clip, image_clip.set_audio(audio_clip), end_silence_clip])
-
-            # Step 5: Set the frame rate
             final_clip = final_clip.set_fps(fps)
-
-            # Step 6: Write the result to a file
             final_clip.write_videofile(output_video_path, codec='libx264', audio_codec='aac')
-
-            # Step 7: Close the clips
             video_clip.close()
             audio_clip.close()
             image_clip.close()
@@ -342,7 +328,6 @@ def get_start_timecode(proxy):
     command=[f'exiftool',f'{proxy}']
     result = subprocess.run(command, capture_output=True, text=True)
     if result.returncode == 0:
-        # Access the output as a string
         output = result.stdout
         if 'Start Timecode      ' in output:
             start_timecode=output.split('Start Timecode      ')[1].split(': ')[1].split('\n')[0]
@@ -359,7 +344,6 @@ def create_sequence(sequence_name):
     return sequence_info
 
 def create_shot(version_name,start_timecode,sequence_name,sequence_id):
-    # return
     if "_sh0" in version_name.lower() or "_sh1" in version_name.lower():
         data={'project':{"type":"Project","id":122},
             'code': version_name,
@@ -406,21 +390,17 @@ def set_task_status(version_name,Shot_ID):
         status='apr'
     elif 'layout' in version_name.lower():
         task_type='Layout'
-        # print('made it this far 1')
     elif 'tracking' in version_name.lower():
         task_type='Tracking'
     elif 'model' in version_name.lower():
         task_type='Tracking'
-            # return [task_type,status]
     possible_tasks=Shotgun_Find_One_Task(Shot_ID)
-    # print('made it this far 2')
 
     for task in possible_tasks:
         if task['step']['name']==task_type:
             task_id=task['id']
             data={'sg_status_list':status}
             sg.update('Task',task_id,data)
-            # print('made it this far 3')
             return task_id
         
 
@@ -507,7 +487,6 @@ def upload_to_SG(proxy,playlist_id):
             SeqCode,ShotCode=Quick_ParseCode(version_name)
             print(version_name,SeqCode)
             print('station 2')
-            # time.sleep(5)
         else:
             SeqCode="zRAW_SHOTS"
             ShotCode=version_name
@@ -563,7 +542,7 @@ global playlist_id
 
 
 
-for i in range(1, len(sys.argv)):  # Skip the first argument, which is the script name
+for i in range(1, len(sys.argv)): 
     if sys.argv[i] == "--playlist":
         playlist_name = sys.argv[i + 1]
     elif sys.argv[i] == "--target":
@@ -575,10 +554,8 @@ for i in range(1, len(sys.argv)):  # Skip the first argument, which is the scrip
 try:
     if playlist_name not in all_playlists.keys():
         playlist_info=Create_Playlist(playlist_name)
-        # global playlist_id
         playlist_id = playlist_info[0]['id']
     else:
-        # global playlist_id
         playlist_id = all_playlists[playlist_name]
 except:
     sys.exit('Need to enter playlist name as argument')
