@@ -1,4 +1,4 @@
-This script was for the day-to-day on Yule Log 2. It could upload and distribute new work from overseas vendors, create new playlist from the Adult Swim editor, and create new playlists from in-house artists to send back to Adult Swim. All handled in one CLI tool with multiple arguments.
+This script was for the day-to-day on Adult Swim's Yule Log and Yule Log 2. It could upload and distribute new work from overseas vendors, create new playlist from the Adult Swim editor, and create new playlists from in-house artists to send back to Adult Swim. All handled in one CLI tool with multiple arguments.
 
 This will upload both proxies and shots to SG. It avoids things from the exports folder and files that end in _source
 
