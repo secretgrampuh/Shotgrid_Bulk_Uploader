@@ -35,7 +35,7 @@ from datetime import datetime
 
 SERVER_PATH = "https://mediateam.shotgrid.autodesk.com/"
 SCRIPT_NAME = 'python_script'
-SCRIPT_KEY = 'petb3dszgemuq~hHfjdzasklt'
+SCRIPT_KEY = 'python_key'
 
 global sg
 sg = shotgun_api3.Shotgun(SERVER_PATH, SCRIPT_NAME, SCRIPT_KEY)
