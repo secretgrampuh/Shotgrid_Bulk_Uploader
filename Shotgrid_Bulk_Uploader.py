@@ -74,12 +74,6 @@ full_sequence_dict={}
 
 tasks_to_update_dict={}
 
-
-# def all_branching_tasks():
-#     all_branching_tasks=sg.find('Task', branching_filters, branching_fields)
-#     for item in 
-#     return all_branching_tasks_dict
-
 Branching_sequences = ['YL2_010_POLI',
                        'YL2_020_ZOOM',
                        'YL2_030_LOG1',
@@ -388,12 +382,6 @@ def create_shot(version_name,start_timecode,sequence_name,sequence_id):
     all_shots[version_name]=shot_info['id']
     return shot_info
 
-# def create_version(version_name):
-#     if version_name not in all_shots.keys():
-#         create_shot(version_name)
-
-#     return version_info
-
 def Shotgun_Find_One_Task(id_to_search):
     filters = [['project', 'is', {'type': 'Project', 'id':122}],
                ["entity", "is", {"type": "Shot", "id": id_to_search}]]
@@ -473,35 +461,16 @@ def CreateVersion(versionName,start_timecode,playlist_id,proxy,Shot_ID="",TaskID
     sg = shotgun_api3.Shotgun(SERVER_PATH, SCRIPT_NAME, SCRIPT_KEY)
     result = sg.create('Version', data)
     print(f'successfully created version: {versionName}')
-    ####### Now that we have a decent function ot find tasks by shotID, just do it from here, don't build dictionary to do at end
-
     full_version_dict[versionName]=result
     all_versions[versionName]=result['id']
     return result
 
 def timecode_to_frames(timecode, fps=24):
-    """
-    Convert a timecode to frames at a given frame rate.
-    
-    Parameters:
-    timecode (str): The timecode in the format "HH:MM:SS:FF".
-    fps (int): Frames per second. Default is 24.
-    
-    Returns:
-    int: The total number of frames.
-    """
-    # Split the timecode into hours, minutes, seconds, and frames
     hh, mm, ss, ff = map(int, timecode.split(':'))
-    
-    # Calculate the total number of frames
     total_frames = (hh * 3600 + mm * 60 + ss) * fps + ff
     
     return total_frames
 
-
-
-# def get_all_SG_Versions():
-#     return all_versions
 
 def gather_all_proxies(proxies_path):
     all_proxies = [y for x in os.walk(proxies_path) for y in glob(os.path.join(x[0], '*mp4'))]
@@ -575,13 +544,7 @@ def upload_to_SG(proxy,playlist_id):
 
 
 
-    
-##### ADJUST TIME SLEEP HERE#####
-# sleep_seconds=24000
-# sleep_string=str(sleep_seconds)
 
-# print(f'sleeping for {sleep_string} seconds')#
-# time.sleep(sleep_seconds)
 
 global all_sequences 
 all_sequences=Shotgun_Find_All_Sequences()
@@ -626,9 +589,7 @@ if '--delivery' in sys.argv:
 
 if '--review' in sys.argv:
     target_folder_1='/Volumes/Branching Out EDIT/Branching Out/VFX/Deliveries/MediaTeam/_INSERT_WORK_HERE'
-    # Get the current date
     current_date = datetime.now()
-    # Format the date as YYYYMMDD
     formatted_date = current_date.strftime('%Y%m%d')
 
     target_folder=f'/Volumes/Branching Out EDIT/Branching Out/VFX/Deliveries/MediaTeam/{formatted_date}'
