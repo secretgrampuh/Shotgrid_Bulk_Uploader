@@ -4,9 +4,12 @@ This will upload both proxies and shots to SG. It avoids things from the exports
 
 Arguments:
 
---new_sequence : This is used for exporting a new sequence from Phil
+--new_sequence : This is used for exporting a new sequence from Editor
+
 --proxies: This is used for uploading new proxies
+
 --review: This is used for sending deliveries from Media Team Folder (Studio)
+
 --purple: This is used for sending deliveries from Purple Patch Folder (Vendor)
 
 --playlist: Enter playlist name
