@@ -3,6 +3,7 @@ This script was for the day-to-day on Adult Swim's Yule Log and Yule Log 2. It c
 This will upload both proxies and shots to SG. It avoids things from the exports folder and files that end in _source
 
 Arguments:
+
 --new_sequence : This is used for exporting a new sequence from Phil
 --proxies: This is used for uploading new proxies
 --review: This is used for sending deliveries from Media Team Folder (Studio)
