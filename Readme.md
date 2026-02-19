@@ -13,7 +13,10 @@ Arguments:
 --purple: This is used for sending deliveries from Purple Patch Folder (Vendor)
 
 --playlist: Enter playlist name
---target: The target folder for uploads. This only works in conjunction with --new sequence though
+
+--target: The target folder for uploads. This only works in conjunction with --new_sequence though
+
+Example Usages:
 
 python /Users/mtimac2/Documents/Develop/Shotgun_Upload_Versions.py --new_sequence --target "/Volumes/Branching Out EDIT/Branching Out/VFX/YL2_025_COVR" --playlist "20240828_YL2_025_COVR_Plates"
 
